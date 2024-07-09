@@ -1,22 +1,20 @@
 import { test, expect } from '@playwright/test';
+import { searchForText } from './utils';
 
 test.describe("Google Search input box @flow=google", () => {
-  test("should display YoutTube link on search", async ({ page }) => {
+  test.beforeEach(async({ page }) => {
     await page.goto("https://www.google.com");
-    const searchInput = await page.locator("textarea[title='Search']");
-    await searchInput.fill("YouTube");
-    await searchInput.press("Enter");
-    await page.waitForNavigation();
+  })
+  test("should display YoutTube link on search", async ({ page }) => {
+    await searchForText(page, "YouTube");
+
     await expect(page).toHaveTitle("YouTube - Google Search");
     const matchedLink = page.getByText("https://www.youtube.com").first();
     await expect(matchedLink).toBeVisible();
   });
   test("should display Razorpay's dashboard on search", async ({ page }) => {
-    await page.goto("https://www.google.com");
-    const searchInput = await page.locator("textarea[title='Search']");
-    await searchInput.fill("Razorpay");
-    await searchInput.press("Enter");
-    await page.waitForNavigation();
+    await searchForText(page, "Razorpay");
+    
     await expect(page.getByRole('link', { name: 'Razorpay - Best Payment Solution' })).toBeVisible();
     await expect(page.getByRole('link', { name: new RegExp("Razorpay Dashboard") })).toBeVisible();
   });
