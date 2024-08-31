@@ -23,7 +23,7 @@ test.describe("Google Search input box @flow=google", () => {
 test.describe("Google Search feeling lucky @flow=google", () => {
   test('should open doogles homepage on button click' , async ({ page }) => {
     await page.goto('https://www.google.com');
-    const feelingLuckyButton = await page.locator(`input[value="I'm Feeling Lucky"]`).last();
+    const feelingLuckyButton = page.locator(`input[value="I'm Feeling Lucky"]`).last();
     await feelingLuckyButton.click();
     await expect(page).toHaveURL('https://doodles.google');
   });
