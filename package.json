@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "e2e": "playwright test --headed"
+    "e2e": "playwright test --headed e2e/visual.spec.ts --project chromium"
   },
   "keywords": [],
   "author": "",
